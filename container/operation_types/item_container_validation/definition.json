@@ -1,0 +1,9 @@
+{
+  "name": "Item_Container_Validation",
+  "parent_class": "OperationType",
+  "category": "Container",
+  "inputs": [],
+  "outputs": [],
+  "on_the_fly": null,
+  "user_id": 1
+}

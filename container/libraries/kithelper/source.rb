@@ -9,13 +9,17 @@ module KitHelper
   def find_kit(sample_type_name, volume)
     sample = Sample.find_by_name(sample_type_name)
 
-    possible_kits = Item.where(sample: sample).to_a.reject(&:deleted?).sort! { |ite|
+    possible_items = Item.where(sample: sample).reject(&:deleted?)
+
+    possible_kits = possible_items.sort!{ |ite|
+      raise ite.id.to_s unless ite.respond_to?('current_volume')
       ite.current_volume[:qty]
     }
     possible_kits.each do |kit|
       kit_cont = KitContainer.new(kit)
       return kit_cont if kit_cont.enough_volume?(volume)
     end
+    raise "No kits of type <b>#{sample_type_name}</b> with sufficient volume"
   end
 
 end

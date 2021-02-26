@@ -46,7 +46,6 @@ class ItemContainer
   def enough_volume?(volume)
     # Convert Volume
     volume = volume[:qty] if volume.is_a? Hash
-
     (current_volume[:qty].to_d - volume.to_d).positive?
   end
 
@@ -154,36 +153,3 @@ class KitContainer < ItemContainer
   end
 
 end
-
-# {
-#   consumables: {
-#      [ 
-#         {
-#           input_name: POOLED_PLATE,
-#           qty: 4.58, units: MICROLITERS,
-#           sample_name: nil,
-#           object_type: nil
-#         },
-#         {
-#           input_name: WATER,
-#           qty: 24, units: MICROLITERS,
-#           sample_name: nil,
-#           object_type: nil
-#       }
-#      ]
-#   },
-#   components: {
-#     [
-#      {
-#        input_name: AREA_SEAL,
-#        qty: 1, units: 'Each',
-#        description: 'Adhesive Plate Seal'
-#      },
-#      {
-#        input_name: MICRO_TUBE,
-#        qty: 2, units: 'Tubes',
-#        description: '1.7 ml Tube'
-#      }
-#    ]
-#   }
-# }

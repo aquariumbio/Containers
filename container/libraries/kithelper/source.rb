@@ -9,7 +9,7 @@ module KitHelper
   def find_kit(sample_type_name, volume)
     sample = Sample.find_by_name(sample_type_name)
 
-    possible_kits = Item.where(sample: sample).to_a.sort!{ |ite|
+    possible_kits = Item.where(sample: sample).to_a.reject(&:deleted?).sort! { |ite|
       ite.current_volume[:qty]
     }
     possible_kits.each do |kit|

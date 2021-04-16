@@ -11,10 +11,11 @@ module KitHelper
 
     possible_items = Item.where(sample: sample).reject(&:deleted?)
 
-    possible_kits = possible_items.sort!{ |ite|
-      raise ite.id.to_s unless ite.respond_to?('current_volume')
-      ite.current_volume[:qty]
-    }
+    possible_kits = possible_items.sort! do |ite|
+      raise "#{ite.id.to_s} has no association 'current_volume'" unless ite.get('current_volume').present?
+
+      eval(ite.get('current_volume'))[:qty]
+    end
     possible_kits.each do |kit|
       kit_cont = KitContainer.new(kit)
       return kit_cont if kit_cont.enough_volume?(volume)
